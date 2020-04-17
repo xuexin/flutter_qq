@@ -36,9 +36,11 @@ public class FlutterQqPlugin implements MethodCallHandler {
     private static Tencent mTencent;
     private Registrar registrar;
     private boolean isLogin;
+    private OneListener listener = new OneListener();
 
     private FlutterQqPlugin(Registrar registrar) {
         this.registrar = registrar;
+        registrar.addActivityResultListener(listener);
     }
 
     /**
@@ -52,8 +54,6 @@ public class FlutterQqPlugin implements MethodCallHandler {
 
     @Override
     public void onMethodCall(MethodCall call, Result result) {
-        OneListener listener = new OneListener();
-        registrar.addActivityResultListener(listener);
         switch (call.method) {
             case "registerQQ":
                 registerQQ(call, result);
